@@ -111,6 +111,19 @@ def formatter(line, column):
 reader(input("in file: "))
 
 
+def dict_search(searchKey):
+    """
+    Searches codes dict keys for code and returns the value
+    :param searchKey: Key to search for. Should be the UCR code from CSV
+    :return: Dict value
+    """
+
+    if searchKey in codes:
+        value = codes[searchKey]
+        print(value)
+        return value
+
+
 def run_formatter():
     """
     Get file locations and run the functions
@@ -120,4 +133,10 @@ def run_formatter():
     out_file = input("Enter output CSV file location: ")
     code_column = input("Enter column number of crime code (numbering begins at 0): ")
 
-    reader(in_file)
+    for i in reader(in_file):
+        value = dict_search(i[code_column])  # Search for dict key for each row
+        writer(i, out_file)
+
+
+if __name__ == '__main__':
+    run_formatter()
